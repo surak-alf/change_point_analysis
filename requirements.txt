@@ -1,0 +1,33 @@
+# Core Libraries
+pandas
+numpy
+matplotlib
+seaborn
+
+# Time Series Analysis
+statsmodels
+arch
+ruptures
+
+# Machine Learning
+scikit-learn
+tensorflow
+keras
+hmmlearn
+
+# Dashboard Development
+flask
+flask-cors
+react
+recharts
+react-chartjs-2
+d3
+
+# Data Visualization
+plotly
+bokeh
+
+# Utilities
+jupyter
+ipython
+python-dotenv
