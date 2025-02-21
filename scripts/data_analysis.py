@@ -31,8 +31,6 @@ def plot_historical_prices(data):
     plt.legend()
     plt.grid()
     plt.show()
-
-
 def analyze_and_plot_prices(data):
     """Combines all price analysis and plotting functions."""
     plot_price_distribution(data)
@@ -48,18 +46,17 @@ def calculate_rolling_mean(data, window=365):
     return data['Price'].rolling(window=window, center=True).mean()
 
 def decompose_time_series(data, period=365, model='additive'):
-  """Performs time series decomposition."""
-  return seasonal_decompose(data['Price'], model=model, period=period)
+    """Performs time series decomposition."""
+    return seasonal_decompose(data['Price'], model=model, period=period)
 
-
-def plot_time_series_components(data, monthly_data, rolling_mean, decomposition):
-    """Plots the original time series, monthly averages, rolling mean, and decomposition components."""
+def plot_time_series_components(data, monthly_data, rolling_mean, decomposition, window):
+    """Plots the time series components."""
     plt.figure(figsize=(15, 10))
 
     plt.subplot(4, 1, 1)
     plt.plot(data['Date'], data['Price'], label='Original Data')
     plt.legend()
-    plt.title('Original Data')  # Add titles to subplots
+    plt.title('Original Data')
 
     plt.subplot(4, 1, 2)
     plt.plot(monthly_data.index, monthly_data.values, label='Monthly Average')
@@ -67,20 +64,19 @@ def plot_time_series_components(data, monthly_data, rolling_mean, decomposition)
     plt.title('Monthly Average')
 
     plt.subplot(4, 1, 3)
-    plt.plot(data['Date'], rolling_mean, label=f'{rolling_mean.rolling.window}-Day Rolling Mean') #Dynamic Window
+    plt.plot(data['Date'], rolling_mean, label=f'{window}-Day Rolling Mean')  # Corrected line
     plt.legend()
-    plt.title(f'{rolling_mean.rolling.window}-Day Rolling Mean') #Dynamic Window
+    plt.title(f'{window}-Day Rolling Mean')  # Corrected line
 
-    plt.subplot(4, 1, 4)  # Add a subplot for the decomposition
-    decomposition.plot()  # Plot the decomposition components
+    plt.subplot(4, 1, 4)
+    decomposition.plot()
     plt.tight_layout()
     plt.show()
-
-
 
 def analyze_and_plot_time_series(data, window=365, period=365, model='additive'):
     """Combines time series analysis and plotting."""
     monthly_data = resample_to_monthly(data)
     rolling_mean = calculate_rolling_mean(data, window)
     decomposition = decompose_time_series(data, period, model)
-    plot_time_series_components(data, monthly_data, rolling_mean, decomposition)
+    plot_time_series_components(data, monthly_data, rolling_mean, decomposition, window)  # Corrected line
+
