@@ -8,8 +8,8 @@ app = Flask(__name__, static_folder='../frontend/build')  # Serve static files
 CORS(app)
 
 try:
-    oil_price_data = pd.read_csv("data/oil_price_data.csv")
-    event_data = pd.read_csv("data/event_data.csv")
+    oil_price_data = pd.read_csv("data/BrentOilPrices.csv")
+    event_data = pd.read_csv("data/world_bank_data.csv")
 
     oil_price_data['Date'] = pd.to_datetime(oil_price_data['Date'])
     event_data['Date'] = pd.to_datetime(event_data['Date'])
@@ -40,7 +40,7 @@ def get_events():
 def get_event_impact(event_name):
     try:
         event = event_data[event_data['Event'] == event_name].iloc[0]
-        event_date = event['Date']
+        event_date = event['Time']
 
         window = pd.Timedelta(days=30)
         impact_data = oil_price_data[
